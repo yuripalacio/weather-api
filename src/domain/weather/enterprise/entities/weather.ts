@@ -1,4 +1,4 @@
-interface WeatherProps {
+export interface WeatherProps {
   city: string
   weather: string
   detail: string

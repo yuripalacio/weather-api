@@ -1,23 +1,31 @@
-import { Weather } from '@/domain/weather/enterprise/entities/weather'
-import { WeatherGateway } from '../gateways/weather-gateway'
 import { CheckWeather } from './check-weather'
+import { InMemoryWeatherGateway } from 'test/gateways/in-memory-weather-gateway'
 
-const fakeWeatherGateway: WeatherGateway = {
-  checkWeather: async function (city: string): Promise<Weather> {
-    return new Weather({
-      city: city,
-      weather: 'Cloudy',
-      detail: 'Cloudy with a chance of meatballs',
-      temperature: 20
-    })
-  }
-}
+let inMemoryWeatherGateway: InMemoryWeatherGateway
+let sut: CheckWeather
 
-test('Check weather', async () => {
-  const checkWeather = new CheckWeather(fakeWeatherGateway)
+describe('Check weather', () => {
+  beforeEach(() => {
+    inMemoryWeatherGateway = new InMemoryWeatherGateway()
+    sut = new CheckWeather(inMemoryWeatherGateway)
+  })
 
-  const city = 'London'
-  const weather = await checkWeather.execute({ city })
+  it('should return the weather for the given city', async () => {
+    const city = 'São Paulo'
+    const weather = await sut.execute({ city })
 
-  expect(weather.city).toBe(city)
+    expect(weather.city).toBe(city)
+  })
+
+  it('should return a error for non exist city', async () => {
+    const city = 'non-exist'
+
+    await expect(sut.execute({ city })).rejects.toThrowError(`Does not find the weather for the given city [${city}]`)
+  })
+
+  it('should return a error for empty city', async () => {
+    const city = ''
+
+    await expect(sut.execute({ city })).rejects.toThrowError('City is required')
+  })
 })
