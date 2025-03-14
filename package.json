@@ -2,10 +2,13 @@
   "name": "wather-api",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start:dev": "tsx watch src/infra/http/server.ts",
     "start": "node dist/infra/http/server.js",
-    "build": "tsup src --out-dir dist"
+    "build": "tsup src --out-dir dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +32,7 @@
     "tsx": "4.19.3",
     "typescript": "5.8.2",
     "typescript-eslint": "8.26.1",
+    "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.0.8"
   }
 }
