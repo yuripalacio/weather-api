@@ -41,13 +41,6 @@ const openWeatherResponseSchema = z.object({
     all: z.number()
   }),
   dt: z.number(),
-  sys: z.object({
-    type: z.number(),
-    id: z.number(),
-    country: z.string(),
-    sunrise: z.number(),
-    sunset: z.number()
-  }),
   timezone: z.number(),
   id: z.number(),
   name: z.string(),
