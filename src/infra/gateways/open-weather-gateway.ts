@@ -85,7 +85,7 @@ export class OpenWeatherGateway implements WeatherGateway {
           throw new ExternalServiceError('Weather service is currently unavailable.')
         }
       }
-      throw new ExternalServiceError('Unexpected error')
+      throw new ExternalServiceError('Unexpected error', 500)
     }
   }
 }

@@ -10,7 +10,7 @@ export class CheckWeatherUseCase {
   constructor(private weatherGateway: WeatherGateway) {}
 
   async execute({ city }: CheckWeatherRequest): Promise<Weather> {
-    if (!city) {
+    if (!city || !city.trim()) {
       throw new DomainError('City is required', 400)
     }
 
