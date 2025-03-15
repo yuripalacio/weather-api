@@ -1,13 +1,13 @@
-import { CheckWeather } from './check-weather'
+import { CheckWeatherUseCase } from './check-weather'
 import { InMemoryWeatherGateway } from 'test/gateways/in-memory-weather-gateway'
 
 let inMemoryWeatherGateway: InMemoryWeatherGateway
-let sut: CheckWeather
+let sut: CheckWeatherUseCase
 
 describe('Check weather', () => {
   beforeEach(() => {
     inMemoryWeatherGateway = new InMemoryWeatherGateway()
-    sut = new CheckWeather(inMemoryWeatherGateway)
+    sut = new CheckWeatherUseCase(inMemoryWeatherGateway)
   })
 
   it('should return the weather for the given city', async () => {
@@ -15,12 +15,6 @@ describe('Check weather', () => {
     const weather = await sut.execute({ city })
 
     expect(weather.city).toBe(city)
-  })
-
-  it('should return a error for non exist city', async () => {
-    const city = 'non-exist'
-
-    await expect(sut.execute({ city })).rejects.toThrowError(`Does not find the weather for the given city [${city}]`)
   })
 
   it('should return a error for empty city', async () => {

@@ -1,12 +1,12 @@
 import { Weather } from '@/domain/weather/enterprise/entities/weather'
 import { WeatherGateway } from '../gateways/weather-gateway'
-import { DomainError } from '../errors/domain-error'
+import { DomainError } from '@/core/errors/domain-error'
 
 interface CheckWeatherRequest {
   city: string
 }
 
-export class CheckWeather {
+export class CheckWeatherUseCase {
   constructor(private weatherGateway: WeatherGateway) {}
 
   async execute({ city }: CheckWeatherRequest): Promise<Weather> {
@@ -15,10 +15,6 @@ export class CheckWeather {
     }
 
     const weather = await this.weatherGateway.checkWeather(city)
-
-    if (!weather) {
-      throw new DomainError(`Does not find the weather for the given city [${city}]`, 404)
-    }
 
     return weather
   }
