@@ -4,7 +4,10 @@ import { z } from 'zod'
 export const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   HOST: z.string().default('0.0.0.0'),
-  PORT: z.coerce.number().default(3333)
+  PORT: z.coerce.number().default(3333),
+  OPEN_WEATHER_API_KEY: z.string(),
+  WINDOW_MS: z.coerce.number().default(15 * 60 * 1000), // 15 minutes
+  MAX_LIMIT_EACH_IP: z.coerce.number().default(50)
 })
 
 const _env = envSchema.safeParse(process.env)
