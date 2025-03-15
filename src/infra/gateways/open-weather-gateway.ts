@@ -5,7 +5,6 @@ import { Weather } from '@/domain/weather/enterprise/entities/weather'
 import { OpenWeatherMapper } from './mappers/open-weather-mapper'
 import { ExternalServiceError } from '@/core/errors/external-service-error'
 import { CityNotFoundError } from '@/core/errors/city-not-found-error'
-import axiosRetry from 'axios-retry'
 import { axiosWithRetry } from '../http/axios-with-retry'
 
 const openWeatherResponseSchema = z.object({
